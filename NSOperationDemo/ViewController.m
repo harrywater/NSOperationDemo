@@ -52,12 +52,12 @@
 //    [opre start];
     
     //5. NSOperationQueue
-    /*NSInvocationOperation* operation1 = [[NSInvocationOperation alloc]initWithTarget:self selector:@selector(handleOperation) object:nil];
+    NSInvocationOperation* operation1 = [[NSInvocationOperation alloc]initWithTarget:self selector:@selector(handleOperation) object:nil];
     NSBlockOperation* operation2 = [NSBlockOperation blockOperationWithBlock:^{
          NSLog(@"operation2==tread--1==%@",[NSThread currentThread]);
     }];
     [operation2 addExecutionBlock:^{
-        for(int i = 0;i<1000;i++){
+        for(int i = 0;i<5;i++){
             NSLog(@"operation2==tread--2==%@==%d",[NSThread currentThread],i);
         }
     }];
@@ -77,7 +77,7 @@
         NSLog(@"operation4==tread--1==%@",[NSThread currentThread]);
     }];
     [queue waitUntilAllOperationsAreFinished];// 阻塞当前线程，等待queue的所有操作执行完毕
-    NSLog(@"queue==%@",queue);*/
+    NSLog(@"queue==%@",queue);
     
     //6. 下载异步图片
     showImg1 = [[UIImageView alloc]initWithFrame:CGRectMake(10, 20, 200, 200)];
@@ -89,7 +89,7 @@
     showImg3 = [[UIImageView alloc]initWithFrame:CGRectMake(10, 250, 200, 200)];
     [self.view addSubview:showImg3];
     
-    NSOperationQueue* queue = [[NSOperationQueue alloc]init];
+    /*NSOperationQueue* queue = [[NSOperationQueue alloc]init];
     __weak typeof(self) weakSelf = self;
     [queue addOperationWithBlock:^{
         //下载图片1
@@ -109,7 +109,7 @@
         NSString* urlStr = @"http://image.tianjimedia.com/uploadImages/2012/233/25/I8I09B0R83J2.jpg";
         UIImage* img = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:urlStr]]];
         [weakSelf performSelectorOnMainThread:@selector(updateUIImg3:) withObject:img waitUntilDone:YES];
-    }];
+    }];*/
 }
 
 -(void)updateUIImg1:(UIImage*)img1
@@ -126,7 +126,7 @@
 }
 -(void)handleOperation
 {
-    NSLog(@"执行NSInvocationOperation");
+    NSLog(@"执行NSInvocationOperation===curThread==%@",[NSThread currentThread]);
 }
 //KVO 监听属性isFinished变化
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
